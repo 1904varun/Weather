@@ -1,0 +1,39 @@
+<!Doctype html>
+<html>
+    <head>
+        <title style="text-align: center">Current Weather</title>
+    </head>
+    <body>
+    
+            <h2 style="text-align: center; font-size: 40px"> Get Current Weather Status</h2>
+            
+          <p style="text-align: center"> Enter Location: <input type="text" name="location" id="location"  placeholder="Location" > 
+                <button id="submit" onclick="func()" >Search</button></p>
+           
+         <p id="output" style="text-align: center">  </p>
+        <script>
+            function func(){
+        var city = document.getElementById('location');
+            var request = new XMLHttpRequest();
+
+            request.open('GET', 'https://api.openweathermap.org/data/2.5/find?q='+city+'&units=metric&APPID=f4658c00b163906fba9fffd902ad1f15', true);
+
+        var display = document.getElementById('output');
+            request.onload = function () {
+                //json
+                
+                var data = JSON.parse(this.response);
+                display.textContent = data.cod;
+                
+                    alert(this.data.list);
+                
+                
+                
+            }
+        request.send();
+        
+            }
+        
+        </script>
+    </body>
+</html>
