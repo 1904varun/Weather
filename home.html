@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<title>Weather Report</title>
+ <h2 style="text-align: center; font-size: 40px">Current Weather Report</h2>
+<body>
+    <div style="text-align:center">
+    <h3>Enter the loaction</h3>
+    <input type="text", id="location", placeholder="Location">
+    <input type="button", id="status", value="Go", onclick="getstatus()">
+</div>
+     <h4 id="count", style="text-align: center"> </h4>
+    <div style="text-align:center"> 
+    <h4 id="data1"; style="display:inline-block"></h4><br>
+    <h4 id="data2"; style="display:inline-block"></h4><br>
+    <h4 id="data3"; style="display:inline-block"></h4><br>
+    <h4 id="data4"; style="display:inline-block"></h4><br>
+    <h4 id="data5"; style="display:inline-block"></h4><br>
+</div>
+
+
+
+    
+</body>
+
+
+<script>
+    var x = document.getElementById("location");
+    x.onkeyup = function(e){
+    if(e.keyCode == 13){
+       getstatus();
+    }
+}
+    function getstatus(){
+        var city=document.getElementById("location").value;
+        let url = 'https://api.openweathermap.org/data/2.5/find?q='+city+'&units=metric&APPID=f4658c00b163906fba9fffd902ad1f15'
+        var request = new XMLHttpRequest();
+            request.open('GET',url, true);
+        var display1 = document.getElementById('data1');
+        var display2 = document.getElementById('data2');
+        var display3 = document.getElementById('data3');
+        var display4 = document.getElementById('data4');
+        var display5 = document.getElementById('data5');
+        var link = document.getElementById("details");
+        var display_count = document.getElementById('count');
+        request.onload=function(){
+           
+            var data = JSON.parse(this.response);
+            var count = data.count;
+            var i;
+            display_count.textContent=count+' result(s) found!';
+            if(count==1){
+                display1.textContent='1: '+data.list[0].name+', '+data.list[0].sys.country+'. Current temperature: '+data.list[0].main.temp+' °C';
+                display2.textContent="";
+                display3.textContent="";
+                display4.textContent="";
+                display5.textContent="";
+                
+            }
+            else if(count==2){
+                display1.textContent='1: '+data.list[0].name+', '+data.list[0].sys.country+'. Current temperature: '+data.list[0].main.temp+' °C';
+                display2.textContent='2: '+data.list[1].name+', '+data.list[1].sys.country+'. Current temperature: '+data.list[1].main.temp+' °C';
+                display3.textContent="";
+                display4.textContent="";
+                display5.textContent="";
+            }
+            else if(count==3){
+                display1.textContent='1: '+data.list[0].name+', '+data.list[0].sys.country+'. Current temperature: '+data.list[0].main.temp+' °C';
+                display2.textContent='2: '+data.list[1].name+', '+data.list[1].sys.country+'. Current temperature: '+data.list[1].main.temp+' °C';
+                display3.textContent='3: '+data.list[2].name+', '+data.list[2].sys.country+'. Current temperature: '+data.list[2].main.temp+' °C';
+                display4.textContent="";
+                display5.textContent="";
+            }        
+            else if(count==4){
+                display1.textContent='1: '+data.list[0].name+', '+data.list[0].sys.country+'. Current temperature: '+data.list[0].main.temp+' °C';
+                display2.textContent='2: '+data.list[1].name+', '+data.list[1].sys.country+'. Current temperature: '+data.list[1].main.temp+' °C';
+                display3.textContent='3: '+data.list[2].name+', '+data.list[2].sys.country+'. Current temperature: '+data.list[2].main.temp+' °C';
+                display4.textContent='4: '+data.list[3].name+', '+data.list[3].sys.country+'. Current temperature: '+data.list[3].main.temp+' °C';
+                display5.textContent="";
+            }       
+            else if(count==5){
+                display1.textContent='1: '+data.list[0].name+', '+data.list[0].sys.country+'. Current temperature: '+data.list[0].main.temp+' °C';
+                display2.textContent='2: '+data.list[1].name+', '+data.list[1].sys.country+'. Current temperature: '+data.list[1].main.temp+' °C';
+                display3.textContent='3: '+data.list[2].name+', '+data.list[2].sys.country+'. Current temperature: '+data.list[2].main.temp+' °C';
+                display4.textContent='4: '+data.list[3].name+', '+data.list[3].sys.country+'. Current temperature: '+data.list[3].main.temp+' °C';
+                display5.textContent='5: '+data.list[4].name+', '+data.list[4].sys.country+'. Current temperature: '+data.list[4].main.temp+' °C';
+
+        }
+        else if(count==0){
+            display1.textContent="";
+                display2.textContent="";
+                display3.textContent="";
+                display4.textContent="";
+                display5.textContent="";
+        }
+        }
+       request.send();
+    }
+    
+</script>
+</html>
